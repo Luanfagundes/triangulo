@@ -25,24 +25,22 @@ vincularEventos = () => {
     
         while(sair){
             
-            if (posA !== oDir.posA){ if (oEsq.posA > oDir.posA){ posA--; }else if(oEsq.posA < oDir.posA){ posA++ }};
-            if (tamA !== oDir.tamA){ if (oEsq.tamA > oDir.tamA){ tamA--; }else if(oEsq.tamA < oDir.tamA){ tamA++ }};
-            if (posB !== oDir.posB){ if (oEsq.posB > oDir.posB){ posB--; }else if(oEsq.posB < oDir.posB){ posB++ }};
-            if (tamB !== oDir.tamB){ if (oEsq.tamB > oDir.tamB){ tamB--; }else if(oEsq.tamB < oDir.tamB){ tamB++ }};
-            if (posC !== oDir.posC){ if (oEsq.posC > oDir.posC){ posC--; }else if(oEsq.posC < oDir.posC){ posC++ }};
-            if (tamC !== oDir.tamC){ if (oEsq.tamC > oDir.tamC){ tamC--; }else if(oEsq.tamC < oDir.tamC){ tamC++ }};
+            if (posA !== oDir.posA) if (oEsq.posA > oDir.posA){ posA--; }else if(oEsq.posA < oDir.posA){ posA++ };
+            if (tamA !== oDir.tamA) if (oEsq.tamA > oDir.tamA){ tamA--; }else if(oEsq.tamA < oDir.tamA){ tamA++ };
+            if (posB !== oDir.posB) if (oEsq.posB > oDir.posB){ posB--; }else if(oEsq.posB < oDir.posB){ posB++ };
+            if (tamB !== oDir.tamB) if (oEsq.tamB > oDir.tamB){ tamB--; }else if(oEsq.tamB < oDir.tamB){ tamB++ };
+            if (posC !== oDir.posC) if (oEsq.posC > oDir.posC){ posC--; }else if(oEsq.posC < oDir.posC){ posC++ };
+            if (tamC !== oDir.tamC) if (oEsq.tamC > oDir.tamC){ tamC--; }else if(oEsq.tamC < oDir.tamC){ tamC++ };
             
             let orelhaDireita = this.orelhas(posA, tamA, posB, tamB, posC, tamC);
             tempo++;
             setTimeout(function(){
+                let orelhaEsqueda = this.orelhas(oEsq.posA, oEsq.tamA, oEsq.posB, oEsq.tamB, oEsq.posC, oEsq.tamC);
+                
                 cpx.clearRect(0,0,tela.width,tela.height);
+                
                 cpx.stroke(orelhaDireita);
-
-                let orelhaDireita2 = this.orelhas(oDir.posA, oDir.tamA, oDir.posB, oDir.tamB, oDir.posC, oDir.tamC);
-                let orelhaEsqueda2 = this.orelhas(oEsq.posA, oEsq.tamA, oEsq.posB, oEsq.tamB, oEsq.posC, oEsq.tamC);
-            
-                cpx.stroke(orelhaEsqueda2);
-                cpx.stroke(orelhaDireita2);
+                cpx.stroke(orelhaEsqueda);
             }, 10 * tempo);
 
             //sair do loop
@@ -72,10 +70,10 @@ let oEsq = {
     oDir = {
         posA: 490,
         tamA: 30,
-        posB: 370,
-        tamB: 120,
-        posC: 470,
-        tamC: 220
+        posB: 470,
+        tamB: 220,
+        posC: 370,
+        tamC: 120
     };
 
 function carregada() {
@@ -84,9 +82,10 @@ function carregada() {
     let tela = document.getElementById("tela");
     let cpx = tela.getContext("2d");
 
-    let orelhaDireita = this.orelhas(oDir.posA, oDir.tamA, oDir.posB, oDir.tamB, oDir.posC, oDir.tamC);
     let orelhaEsqueda = this.orelhas(oEsq.posA, oEsq.tamA, oEsq.posB, oEsq.tamB, oEsq.posC, oEsq.tamC);
-
+    let orelhaDireita = this.orelhas(oDir.posA, oDir.tamA, oDir.posB, oDir.tamB, oDir.posC, oDir.tamC);
+    
+    desenharRosto();
 
     cpx.stroke(orelhaEsqueda);
     cpx.stroke(orelhaDireita);
