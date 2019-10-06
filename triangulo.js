@@ -1,52 +1,4 @@
-calcularTriangulo = () => { 
-    let a = parseFloat(prompt("digite a:"));
-    let b = parseFloat(prompt("digite b:"));
-    let c = parseFloat(prompt("digite c:"));
-    
-    if(a == b && b ==c){
-     document.write("Triangulo equilatero!");
-    }
-    else if(a != b && b != c && c != a){
-     document.write("Triangulo escaleno!");
-    }
-    else{
-     document.write("Triangulo isóceles!");
-    }
-};
-
-
-function verificarTriangulo() {
-    let tela = document.getElementById("tela");
-    let cpx = tela.getContext("2d");
-    cpx.clearRect(0,0,tela.width,tela.height);
-
-    var verticeAX = parseFloat($('#txtVerticeAX').val());
-    var verticeAY = parseFloat($('#txtVerticeAY').val());
-    var verticeBX = parseFloat($('#txtVerticeBX').val());
-    var verticeBY = parseFloat($('#txtVerticeBY').val());
-    var verticeCX = parseFloat($('#txtVerticeCX').val());
-    var verticeCY = parseFloat($('#txtVerticeCY').val());
-
-
-    cpx.fillStyle = "gray";
-    cpx.beginPath();
-    cpx.moveTo(verticeAX, verticeAY); // parte de cima        - (largura - altura);
-    cpx.lineTo(verticeBX, verticeBY); // parte esquerda baixa - (largura - altura);
-    cpx.lineTo(verticeCX, verticeCY); // parte direita baixa  - (largura - altura);
-    cpx.fill();
-    classificarTriangulo();
-}
-
-function classificarTriangulo()
-{
-    $('#lblTipoTriangulo').val('');
-    var verticeAX = parseFloat($('#txtVerticeAX').val());
-    var verticeAY = parseFloat($('#txtVerticeAY').val());
-    var verticeBX = parseFloat($('#txtVerticeBX').val());
-    var verticeBY = parseFloat($('#txtVerticeBY').val());
-    var verticeCX = parseFloat($('#txtVerticeCX').val());
-    var verticeCY = parseFloat($('#txtVerticeCY').val());
-
+verificaTipoTriangulo = (verticeAX, verticeBX, verticeCX, verticeAY, verticeBY, verticeCY) => { 
     var distanciaAB = Math.abs(Math.pow((verticeAX - verticeBX),2)) + Math.abs(Math.pow((verticeAY - verticeBY),2));
     var distanciaAC = Math.abs(Math.pow((verticeAX - verticeCX),2)) + Math.abs(Math.pow((verticeAY - verticeCY),2));;
     var distanciaBC = Math.abs(Math.pow((verticeBX - verticeCX),2)) + Math.abs(Math.pow((verticeBY - verticeCY),2));;
@@ -54,67 +6,166 @@ function classificarTriangulo()
     if(distanciaAB == distanciaAC && distanciaAC == distanciaBC)
     {
         alert('O triângulo é equilátero!');
-        //$('#lblTipoTriangulo').val('O triângulo é equilátero!');
     }
     else if(distanciaAB == distanciaAC || distanciaAB == distanciaBC || distanciaBC == distanciaAC)
     {
         alert('O triângulo é escaleno!');
-        // $('#lblTipoTriangulo').val('O triângulo é escaleno!');
     }
-    else
-    {
-        alert('O triângulo é isósceles!');
-        // $('#lblTipoTriangulo').val('O triângulo é isósceles!');
-    }
-}
 
-function rotacionarTriangulo()
-{
-    var verticeAX = parseFloat($('#txtVerticeAX').val());
-    var verticeAY = parseFloat($('#txtVerticeAY').val());
-    var verticeBX = parseFloat($('#txtVerticeBX').val());
-    var verticeBY = parseFloat($('#txtVerticeBY').val());
-    var verticeCX = parseFloat($('#txtVerticeCX').val());
-    var verticeCY = parseFloat($('#txtVerticeCY').val());
-
-    var rotacao = parseFloat($('#txtRotacao').val());
-
-  //  x´ = x.cos q - y.sen q
-//y´ = x.sen q + y.cos q
-    verticeAX = verticeAX * (Math.cos(rotacao)) - verticeAY * (Math.sin(rotacao));
-    verticeAY = verticeAX * (Math.sin(rotacao)) + verticeAY * (Math.cos(rotacao));
-
-    verticeBX = verticeBX * (Math.cos(rotacao)) - verticeBY * (Math.sin(rotacao));
-    verticeBY = verticeBX * (Math.sin(rotacao)) + verticeBY * (Math.cos(rotacao));
-
-    verticeCX = verticeCX * (Math.cos(rotacao)) - verticeCY * (Math.sin(rotacao));
-    verticeCY = verticeCX * (Math.sin(rotacao)) + verticeCY * (Math.cos(rotacao));
-
-    let tela = document.getElementById("tela");
-    let cpx = tela.getContext("2d");
-
-    cpx.clearRect(0,0,tela.width,tela.height);
-    cpx.fillStyle = "gray";
-    cpx.beginPath();
-    cpx.moveTo(verticeAX, verticeAY); // parte de cima        - (largura - altura);
-    cpx.lineTo(verticeBX, verticeBY); // parte esquerda baixa - (largura - altura);
-    cpx.lineTo(verticeCX, verticeCY); // parte direita baixa  - (largura - altura);
-    cpx.fill();
-}
-
-montarTriangulo = () => { 
-    let tela = document.getElementById("tela");
-    let cpx = tela.getContext("2d");
-
-    cpx.fillStyle = "gray";
-    cpx.beginPath();
-    cpx.moveTo(50, 10); // parte de cima        - (largura - altura);
-    cpx.lineTo(10, 50); // parte esquerda baixa - (largura - altura);
-    cpx.lineTo(90, 50); // parte direita baixa  - (largura - altura);
-    cpx.fill();
+    alert('O triângulo é isósceles!');
 };
+
+vincularEventos = () => {
+    document.getElementById('aplicar-efeitos').addEventListener('click', (e) => {
+        let tela = document.getElementById("tela");
+        let cpx = tela.getContext("2d");
+        var posA = oEsq.posA, tamA = oEsq.tamA, posB = oEsq.posB, tamB = oEsq.tamB, posC = oEsq.posC, tamC = oEsq.tamC;
+        var tempo = 1;
+        var sair = true;
+    
+        while(sair){
+            
+            if (posA !== oDir.posA){ if (oEsq.posA > oDir.posA){ posA--; }else if(oEsq.posA < oDir.posA){ posA++ }};
+            if (tamA !== oDir.tamA){ if (oEsq.tamA > oDir.tamA){ tamA--; }else if(oEsq.tamA < oDir.tamA){ tamA++ }};
+            if (posB !== oDir.posB){ if (oEsq.posB > oDir.posB){ posB--; }else if(oEsq.posB < oDir.posB){ posB++ }};
+            if (tamB !== oDir.tamB){ if (oEsq.tamB > oDir.tamB){ tamB--; }else if(oEsq.tamB < oDir.tamB){ tamB++ }};
+            if (posC !== oDir.posC){ if (oEsq.posC > oDir.posC){ posC--; }else if(oEsq.posC < oDir.posC){ posC++ }};
+            if (tamC !== oDir.tamC){ if (oEsq.tamC > oDir.tamC){ tamC--; }else if(oEsq.tamC < oDir.tamC){ tamC++ }};
+            
+            let orelhaDireita = this.orelhas(posA, tamA, posB, tamB, posC, tamC);
+            tempo++;
+            setTimeout(function(){
+                cpx.clearRect(0,0,tela.width,tela.height);
+                cpx.stroke(orelhaDireita);
+
+                let orelhaDireita2 = this.orelhas(oDir.posA, oDir.tamA, oDir.posB, oDir.tamB, oDir.posC, oDir.tamC);
+                let orelhaEsqueda2 = this.orelhas(oEsq.posA, oEsq.tamA, oEsq.posB, oEsq.tamB, oEsq.posC, oEsq.tamC);
+            
+                cpx.stroke(orelhaEsqueda2);
+                cpx.stroke(orelhaDireita2);
+            }, 10 * tempo);
+
+            //sair do loop
+            if ((posA ===  oDir.posA) && (tamA ===  oDir.tamA) &&  (posB ===  oDir.posB) && 
+                (tamB ===  oDir.tamB) && (posC ===  oDir.posC) && (tamC ===  oDir.tamC)){
+                sair = false;
+            }
+        }
+    });
+}
+
+//posA: oEsq.posA + 380,
+//tamA: oEsq.tamA + 0,
+//posB: oEsq.posB + 240,
+//tamB: oEsq.tamB - 100,
+//posC: oEsq.posC + 230,
+//tamC: oEsq.tamC + 100,
+
+let oEsq = {
+        posA: 110,
+        tamA: 30,
+        posB: 130,
+        tamB: 220,
+        posC: 240,
+        tamC: 120 
+    },
+    oDir = {
+        posA: 490,
+        tamA: 30,
+        posB: 370,
+        tamB: 120,
+        posC: 470,
+        tamC: 220
+    };
 
 function carregada() {
-    //this.calcularTriangulo();
-    //this.montarTriangulo();
+    vincularEventos();
+
+    let tela = document.getElementById("tela");
+    let cpx = tela.getContext("2d");
+
+    let orelhaDireita = this.orelhas(oDir.posA, oDir.tamA, oDir.posB, oDir.tamB, oDir.posC, oDir.tamC);
+    let orelhaEsqueda = this.orelhas(oEsq.posA, oEsq.tamA, oEsq.posB, oEsq.tamB, oEsq.posC, oEsq.tamC);
+
+
+    cpx.stroke(orelhaEsqueda);
+    cpx.stroke(orelhaDireita);
 };
+
+
+function orelhas(posA, tamA, posB, tamB, posC, tamC) {
+    let cpx = new Path2D();
+    
+    cpx.moveTo(posA, tamA); // parte de cima        - (lados(direita + esquerda -); altura(cima - baixo +));
+    cpx.lineTo(posB, tamB); // parte esquerda baixa - (lados(direita + esquerda -); altura(cima - baixo +));
+    cpx.lineTo(posC, tamC); // parte direita baixa  - (lados(direita + esquerda -); altura(cima - baixo +));
+    cpx.lineTo(posA, tamA);
+    
+    return cpx;
+}
+
+function rotacionarOrelhas(posA, tamA, posB, tamB, posC, tamC) {
+    let cpx = new Path2D();
+
+    var rotacao = 10;
+
+    let verticeAX = posA;
+    let verticeAY = tamA;
+    let verticeBX = posB;
+    let verticeBY = tamB;
+    let verticeCX = posC;
+    let verticeCY = tamC;
+    //120 y
+    //160 x posb
+    verticeAX = (160 * (Math.cos(rotacao))) + (120 * (Math.sin(rotacao)));
+    verticeAY = (160 * (Math.sin(rotacao))) + (120 * (Math.cos(rotacao)));
+
+    verticeBX = (160 * (Math.cos(rotacao))) + (120 * (Math.sin(rotacao)));
+    verticeBY = (160 * (Math.sin(rotacao))) + (120 * (Math.cos(rotacao)));
+
+    verticeCX = (160 * (Math.cos(rotacao))) + (120 * (Math.sin(rotacao)));
+    verticeCY = (160 * (Math.sin(rotacao))) + (120 * (Math.cos(rotacao)));
+    
+    
+    cpx.moveTo(verticeAX, verticeAY);
+    cpx.lineTo(verticeBX, verticeBY);
+    cpx.lineTo(verticeCX, verticeCY);
+    cpx.lineTo(verticeAX, verticeAY);
+    
+    return cpx;
+}
+
+function desenharRosto() {
+    let tela = document.getElementById("tela");
+    let cpx = tela.getContext("2d");
+
+    cpx.beginPath();
+    cpx.arc(300, 240, 170, 0, Math.PI * 2, true); // Lado, Cima Baixo, Largura
+    
+    cpx.stroke();
+}
+
+function desenharOlhos() {
+    let tela = document.getElementById("tela");
+    let cpx = tela.getContext("2d");
+    
+    var teste = new Path2D();
+
+    teste.arc(220, 230, 30, 0, Math.PI * 2, true); // Lado, Cima Baixo, Largura
+    cpx.stroke(teste);
+}
+
+function desenharRetinas() {
+    let tela = document.getElementById("tela");
+    let cpx = tela.getContext("2d");
+
+    cpx.strokeRect(217, 217, 05, 25); // (Lados (dir + esquerda - ) Cimabaixo (baixo + cima - ) Largura, Tamanho)
+}
+
+function desenharNariz() {
+    let tela = document.getElementById("tela");
+    let cpx = tela.getContext("2d");
+
+    cpx.strokeRect(270, 305, 50, 15); // (Lados (dir + esquerda - ) Cimabaixo (baixo + cima - ) Largura, Tamanho)
+    cpx.strokeRect(290, 320, 10, 22); // (Lados (dir + esquerda - ) Cimabaixo (baixo + cima - ) Largura, Tamanho)
+}

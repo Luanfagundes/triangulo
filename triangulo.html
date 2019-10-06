@@ -7,57 +7,16 @@
     <title>Triangulo</title>
 </head>
 <body onload="carregada()">
-        <table>
-            <tr>
-                <td>Vértice</td>
-                <td>X</td>
-                <td>Y</td>
-            </tr>
-            <tr>
-                <td>A</td>
-                <td>
-                    <input type="number" id="txtVerticeAX" style="width: 40px;" min="0"/>
-                </td>
-                <td>
-                    <input type="number" id="txtVerticeAY" style="width: 40px;" min="0"/>
-                </td>
-            </tr>
-            <tr>
-                <td>B</td>
-                <td>
-                    <input type="number" id="txtVerticeBX" style="width: 40px;" min="0"/>
-                </td>
-                <td>
-                    <input type="number" id="txtVerticeBY" style="width: 40px;" min="0"/>
-                </td>
-            </tr>
-            <tr>
-                <td>C</td>
-                <td>
-                    <input type="number" id="txtVerticeCX" style="width: 40px;" min="0"/>
-                </td>
-                <td>
-                    <input type="number" id="txtVerticeCY" style="width: 40px;" min="0"/>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"></td>
-                <td>
-                    <button onclick="verificarTriangulo()">Gerar</button>
-                </td>
-            </tr>
-            <tr>
-                    <td>Graus</td>
-                    <td>
-                        <input type="number" id="txtRotacao" style="width: 40px;" min="0"/>
-                    </td>
-                    <td>
-                            <button onclick="rotacionarTriangulo()">Rotacionar</button>
-                    </td>
-            </tr>
-        </table>
-        <table>
-            <canvas id="tela" width="1000%" height="500%" style="border: 1px solid"> </canvas>
-        </table>
+    <div style="display: flex">
+        <div>
+            <canvas id="tela" width="718%" height="482%" style="border: 1px solid"> </canvas>
+        </div>
+        <div style="padding-left: 20px">
+            <img src="gato.jpg" alt="gato" width="100%">
+        </div>
+    </div>
+    <div style="padding-top: 50px;">
+        <button id="aplicar-efeitos" style="width: 92%" type="button" >Aplicar efeito</button>
+    </div>
 </body>
 </html>
